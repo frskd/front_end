@@ -53,7 +53,13 @@ const InputControls: React.FC<InputControlsProps> = ({
     }, [inputData, controlsDidChange])
 
     return (
-        <form>
+        <form
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: "20%"
+            }}
+        >
             <select
                 name="usState"
                 value={inputData.usState}

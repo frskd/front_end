@@ -42,29 +42,22 @@ const App: React.FC = () => {
     return (
         <>
             <h1>Frskd</h1>
+
+            <ul style={{ display: "flex", justifyContent: "space-around" }}>
+                {Object.values(outcomesData).map((outcomeData, i) => (
+                    <li key={uuid()}>
+                        <h4>{Object.keys(outcomesData)[i]}</h4>
+                        <p>{(outcomeData * 100).toPrecision(2)}%</p>
+                        <progress value={outcomeData} />
+                    </li>
+                ))}
+            </ul>
+
             <InputControls
                 locations={locations}
                 ethnicities={ethnicities}
                 controlsDidChange={handleChange}
             />
-            <section
-                style={{ display: "flex", justifyContent: "space-around" }}
-            >
-                <h2>Results</h2>
-
-                <main>
-                    <h3>Outcomes</h3>
-                    <ul>
-                        {Object.values(outcomesData).map((outcomeData, i) => (
-                            <li key={uuid()}>
-                                <h4>{Object.keys(outcomesData)[i]}</h4>
-                                <p>{(outcomeData * 100).toPrecision(2)}%</p>
-                                <progress value={outcomeData} />
-                            </li>
-                        ))}
-                    </ul>
-                </main>
-            </section>
         </>
     )
 }
