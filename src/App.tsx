@@ -1,42 +1,8 @@
 import React, { useEffect, useState } from "react"
-import axios from "axios"
 import uuid from "uuid/v4"
 
-const fetchLocations = async () => {
-    const { data } = await axios.get("http://localhost:5000/locations")
-    return data
-}
-
-const fetchEthnicities = async () => {
-    const { data } = await axios.get("http://localhost:5000/ethnicities")
-    return data
-}
-
-interface OutcomesInputData {
-    hour_of_day: number
-    age: number
-    is_pedestrian_stop: boolean
-    ethnicity: string
-}
-
-interface OutcomesData {
-    arrest: number
-    citation: number
-    none: number
-}
-
-const fetchOutcomes = async (
-    location: string,
-    inputData: OutcomesInputData
-): Promise<OutcomesData> => {
-    const { data } = await axios.get(
-        `http://localhost:5000/outcomes/${location}`,
-        {
-            params: { ...inputData }
-        }
-    )
-    return data
-}
+import { fetchEthnicities, fetchLocations, fetchOutcomes } from "./api"
+import { OutcomesData } from "./types"
 
 const App: React.FC = () => {
     const [locations, setLocations] = useState([])
@@ -55,24 +21,24 @@ const App: React.FC = () => {
     })
     useEffect(() => {
         fetchLocations()
-            .then(locations => {
-                setLocations(locations)
+            .then(loc => {
+                setLocations(loc)
             })
             .catch(console.error)
     }, [])
     useEffect(() => {
         fetchEthnicities()
-            .then(ethnicities => {
-                setEthnicities(ethnicities)
+            .then(ethnics => {
+                setEthnicities(ethnics)
             })
             .catch(console.error)
     }, [])
 
     useEffect(() => {
         fetchOutcomes(selectedLocation, {
-            hour_of_day: selectedHourOfTheDay,
-            ethnicity: selectedEthnicity,
             age: selectedAge,
+            ethnicity: selectedEthnicity,
+            hour_of_day: selectedHourOfTheDay,
             is_pedestrian_stop: isPedestrianStop
         })
             .then(data => setOutcomesData(data))
@@ -176,7 +142,7 @@ const App: React.FC = () => {
                             <li key={uuid()}>
                                 <h4>{Object.keys(outcomesData)[i]}</h4>
                                 <p>{(outcomeData * 100).toPrecision(2)}%</p>
-                                <progress value={outcomeData}></progress>
+                                <progress value={outcomeData} />
                             </li>
                         ))}
                     </ul>
