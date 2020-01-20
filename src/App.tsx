@@ -1,15 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import uuid from "uuid/v4"
 
-import { fetchEthnicities, fetchLocations, fetchOutcomes } from "./api"
+import { fetchOutcomes } from "./api"
 import InputControls from "./components/InputControls"
 import { OutcomesData } from "./types"
 import { OutcomesInputData } from "./types/index"
 
 const App: React.FC = () => {
-    const [locations, setLocations] = useState([])
-    const [ethnicities, setEthnicities] = useState([])
-
     const [outcomesData, setOutcomesData] = useState<OutcomesData>({
         arrest: 0,
         citation: 0,
@@ -24,20 +21,6 @@ const App: React.FC = () => {
         },
         []
     )
-    useEffect(() => {
-        fetchLocations()
-            .then(loc => {
-                setLocations(loc)
-            })
-            .catch(console.error)
-    }, [])
-    useEffect(() => {
-        fetchEthnicities()
-            .then(ethnics => {
-                setEthnicities(ethnics)
-            })
-            .catch(console.error)
-    }, [])
 
     return (
         <>
@@ -53,11 +36,7 @@ const App: React.FC = () => {
                 ))}
             </ul>
 
-            <InputControls
-                locations={locations}
-                ethnicities={ethnicities}
-                controlsDidChange={handleChange}
-            />
+            <InputControls controlsDidChange={handleChange} />
         </>
     )
 }

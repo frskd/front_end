@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react"
 import uuid from "uuid"
 
+import useEthnicities from "../hooks/use-ethnicities"
+import useUsStates from "../hooks/use-us-states"
 import { OutcomesInputData } from "../types/index"
 
 interface InputControlsProps {
-    locations: Array<{ id: string; name: string }>
-    ethnicities: Array<{ id: string; name: string }>
     controlsDidChange: (
         selectedUsState: string,
         inputData: OutcomesInputData
     ) => void
 }
 
-const InputControls: React.FC<InputControlsProps> = ({
-    locations,
-    ethnicities,
-    controlsDidChange
-}) => {
+const InputControls: React.FC<InputControlsProps> = ({ controlsDidChange }) => {
+    const usStates = useUsStates()
+    const ethnicities = useEthnicities()
+
     const [inputData, setInputData] = useState({
         usState: "washington",
         ethnicity: "black",
@@ -65,7 +64,7 @@ const InputControls: React.FC<InputControlsProps> = ({
                 value={inputData.usState}
                 onChange={handleStringChange}
             >
-                {locations.map(({ id, name }) => (
+                {usStates.map(({ id, name }) => (
                     <option key={uuid()} value={name}>
                         {name}
                     </option>
