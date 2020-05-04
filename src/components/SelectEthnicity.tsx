@@ -8,7 +8,7 @@ const SelectEthnicity = () => {
         <>
             <h2>Select Ethnicity</h2>
             <ul>
-                {ethnicities.map(ethnicity => (
+                {ethnicities.map((ethnicity) => (
                     <li key={ethnicity.id}>{ethnicity.name}</li>
                 ))}
             </ul>

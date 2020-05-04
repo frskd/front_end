@@ -15,7 +15,7 @@ const useEthnicities = () => {
         }
 
         fetchEthnicities()
-            .then(e => setEthnicities(e))
+            .then((e) => setEthnicities(e))
             .catch(console.error)
     }, [ethnicities, setEthnicities])
 

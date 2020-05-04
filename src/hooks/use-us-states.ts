@@ -15,7 +15,7 @@ const useUsStates = () => {
         }
 
         fetchLocations()
-            .then(locations => setUsStates(locations))
+            .then((locations) => setUsStates(locations))
             .catch(console.error)
     }, [usStates, setUsStates])
 

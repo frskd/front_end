@@ -8,7 +8,7 @@ const SelectUsaState = () => {
         <>
             <h2>Select a State</h2>
             <ul>
-                {usStates.map(usState => (
+                {usStates.map((usState) => (
                     <li key={usState.id}>{usState.name}</li>
                 ))}
             </ul>

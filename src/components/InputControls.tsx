@@ -64,7 +64,7 @@ const InputControls: React.FC<InputControlsProps> = ({ controlsDidChange }) => {
                 value={inputData.usState}
                 onChange={handleStringChange}
             >
-                {usStates.map(({ id, name }) => (
+                {usStates.map(({ name }) => (
                     <option key={uuid()} value={name}>
                         {name}
                     </option>
