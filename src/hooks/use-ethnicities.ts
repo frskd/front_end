@@ -2,11 +2,12 @@ import { useEffect } from "react"
 import createPersistedStore from "use-persisted-state"
 
 import { fetchEthnicities } from "../api"
+import { Ethnicity } from "../api/index"
 
 const useEthnicitiesStore = createPersistedStore("ethnicities")
 
 const useEthnicities = () => {
-    const [ethnicities, setEthnicities] = useEthnicitiesStore([])
+    const [ethnicities, setEthnicities] = useEthnicitiesStore<Ethnicity[]>([])
 
     useEffect(() => {
         if (ethnicities.length > 0) {
@@ -14,7 +15,7 @@ const useEthnicities = () => {
         }
 
         fetchEthnicities()
-            .then(e => setEthnicities(e))
+            .then((e) => setEthnicities(e))
             .catch(console.error)
     }, [ethnicities, setEthnicities])
 

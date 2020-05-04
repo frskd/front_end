@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from "react"
-import uuid from "uuid/v4"
+import { v4 as uuid } from "uuid"
 
 import { fetchOutcomes } from "./api"
 import InputControls from "./components/InputControls"
+import SelectEthnicity from "./components/SelectEthnicity"
+import SelectStopType from "./components/SelectStopType"
+import SelectUsaState from "./components/SelectUsaState"
 import { OutcomesData } from "./types"
 import { OutcomesInputData } from "./types/index"
 
@@ -16,7 +19,7 @@ const App: React.FC = () => {
     const handleChange = useCallback(
         (selectedUsState: string, inputData: OutcomesInputData) => {
             fetchOutcomes(selectedUsState, inputData)
-                .then(data => setOutcomesData(data))
+                .then((data) => setOutcomesData(data))
                 .catch(console.error)
         },
         []
@@ -37,6 +40,9 @@ const App: React.FC = () => {
             </ul>
 
             <InputControls controlsDidChange={handleChange} />
+            <SelectUsaState />
+            <SelectEthnicity />
+            <SelectStopType />
         </>
     )
 }

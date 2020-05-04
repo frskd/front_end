@@ -2,11 +2,12 @@ import { useEffect } from "react"
 import createPersistedStore from "use-persisted-state"
 
 import { fetchLocations } from "../api"
+import { UsaState } from "../api/index"
 
 const useUsStatesStore = createPersistedStore("usStates")
 
 const useUsStates = () => {
-    const [usStates, setUsStates] = useUsStatesStore([])
+    const [usStates, setUsStates] = useUsStatesStore<UsaState[]>([])
 
     useEffect(() => {
         if (usStates.length > 0) {
@@ -14,7 +15,7 @@ const useUsStates = () => {
         }
 
         fetchLocations()
-            .then(locations => setUsStates(locations))
+            .then((locations) => setUsStates(locations))
             .catch(console.error)
     }, [usStates, setUsStates])
 
