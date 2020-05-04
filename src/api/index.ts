@@ -8,7 +8,16 @@ const axiosInstance = axios.create({
     baseURL: REACT_APP_FLASK_API_BASE_URL
 })
 
-export const fetchLocations = async () => {
+export interface UsaState {
+    id: string
+    name: string
+}
+
+export interface Ethnicity {
+    id: string
+    name: string
+}
+export const fetchLocations = async (): Promise<UsaState[]> => {
     const { data } = await axiosInstance.get("/locations")
     return data
 }

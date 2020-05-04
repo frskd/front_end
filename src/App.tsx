@@ -3,6 +3,9 @@ import uuid from "uuid/v4"
 
 import { fetchOutcomes } from "./api"
 import InputControls from "./components/InputControls"
+import SelectEthnicity from "./components/SelectEthnicity"
+import SelectStopType from "./components/SelectStopType"
+import SelectUsaState from "./components/SelectUsaState"
 import { OutcomesData } from "./types"
 import { OutcomesInputData } from "./types/index"
 
@@ -37,6 +40,9 @@ const App: React.FC = () => {
             </ul>
 
             <InputControls controlsDidChange={handleChange} />
+            <SelectUsaState />
+            <SelectEthnicity />
+            <SelectStopType />
         </>
     )
 }
