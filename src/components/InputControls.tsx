@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import uuid from "uuid"
+import { v4 as uuid } from "uuid"
 
 import useEthnicities from "../hooks/use-ethnicities"
 import useUsStates from "../hooks/use-us-states"

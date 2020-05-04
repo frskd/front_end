@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import uuid from "uuid/v4"
+import { v4 as uuid } from "uuid"
 
 import { fetchOutcomes } from "./api"
 import InputControls from "./components/InputControls"
@@ -19,7 +19,7 @@ const App: React.FC = () => {
     const handleChange = useCallback(
         (selectedUsState: string, inputData: OutcomesInputData) => {
             fetchOutcomes(selectedUsState, inputData)
-                .then(data => setOutcomesData(data))
+                .then((data) => setOutcomesData(data))
                 .catch(console.error)
         },
         []
