@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import { Location, Ethnicity, Outcome, OutcomeQuery } from "../interfaces"
+import { AllOutcomeResponse } from "../interfaces/index"
 
 const { REACT_APP_FLASK_API_BASE_URL } = process.env
 
@@ -18,7 +19,14 @@ export const fetchEthnicities = async (): Promise<Ethnicity[]> => {
     return data
 }
 
-export const fetchOutcomes = async (
+export const fetchOutcomes = async () => {
+    const { data: outcomes } = await axiosInstance.get<AllOutcomeResponse[]>(
+        "/outcomes?ethnicity=black&age=18&hour_of_day=12&is_pedestrian_stop=false"
+    )
+    return outcomes
+}
+
+export const fetchOutcomesByLocation = async (
     location: string,
     query: OutcomeQuery
 ): Promise<Outcome> => {

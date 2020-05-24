@@ -4,6 +4,10 @@ export interface Outcome {
     none: number
 }
 
+export interface AllOutcomeResponse extends Outcome {
+    location: string
+}
+
 export interface OutcomeQuery {
     hour_of_day: number
     age: number

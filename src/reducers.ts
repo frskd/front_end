@@ -1,5 +1,6 @@
 import { ActionType, Action } from "./actions"
 import { AppState } from "./interfaces"
+import { Outcome } from "./interfaces/index"
 
 export const appReducer = (state: AppState, action: Action): AppState => {
     switch (action.type) {
@@ -15,6 +16,19 @@ export const appReducer = (state: AppState, action: Action): AppState => {
                 ...state,
                 ethnicities: action.payload.reduce((prev, current) => {
                     return Object.assign(prev, { [current.id]: { ...current } })
+                }, {})
+            }
+        case ActionType.initOutcomes:
+            return {
+                ...state,
+                outcomes: action.payload.reduce<{
+                    [locationId: string]: Outcome
+                }>((prev, current) => {
+                    const location = current.location
+                    delete current.location
+                    return Object.assign(prev, {
+                        [location]: { ...current }
+                    })
                 }, {})
             }
         case ActionType.settingsSelectLocation:
