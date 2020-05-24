@@ -25,7 +25,7 @@
     "rules": {
         "indent": ["off"],
         "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "double"],
+        "quotes": ["off"],
         "semi": ["error", "never"]
     },
     "overrides": [
