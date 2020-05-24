@@ -2,6 +2,7 @@ import { createContext, Dispatch } from "react"
 
 import { AppState } from "./interfaces"
 import { Action } from "./actions"
+import { OutcomeType } from "./interfaces/index"
 
 export const initialAppState: AppState = {
     locations: {},
@@ -12,7 +13,8 @@ export const initialAppState: AppState = {
         ethnicityId: "<insert-uuid>",
         age: 18,
         hourOfTheDay: 12,
-        isPedestrianStop: false
+        isPedestrianStop: false,
+        outcomeType: OutcomeType.arrest
     }
 }
 

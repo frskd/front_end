@@ -3,7 +3,9 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps"
 import { css } from "@emotion/core"
 import { scaleLinear } from "d3-scale"
 
+import { Location } from "../interfaces"
 import AppContext from "../store"
+import { ActionType } from "../actions/index"
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"
 
@@ -14,13 +16,24 @@ const snakeCase = (name: string) => {
         .join("_")
 }
 
+const idForLocationName = (
+    locations: { [key: string]: Location },
+    stateName: string
+) => {
+    for (const locationId in locations) {
+        const location = locations[locationId]
+        if (stateName === location.name) {
+            return location.id
+        }
+    }
+}
+
 const UsMap = () => {
     const [domain, setDomain] = useState([0, 1])
-    const { state } = useContext(AppContext)
-
+    const { state, dispatch } = useContext(AppContext)
     const colorScale = scaleLinear<string, string>()
         .domain(domain)
-        .range(["#EBF8FF", "#2A4365"])
+        .range(["#F687B3", "#702459"])
 
     useEffect(() => {
         let min = Infinity
@@ -62,13 +75,26 @@ const UsMap = () => {
                             const currentLocationName = snakeCase(
                                 currentStateName
                             )
-                            const currentOutcome =
+                            let currentOutcome =
                                 state.outcomes[currentLocationName]
 
                             return (
                                 <Geography
                                     key={geo.rsmKey}
                                     geography={geo}
+                                    onMouseEnter={() => {
+                                        const locationId = idForLocationName(
+                                            state.locations,
+                                            currentLocationName
+                                        )
+                                        if (locationId) {
+                                            dispatch({
+                                                type:
+                                                    ActionType.settingsSelectLocation,
+                                                payload: locationId
+                                            })
+                                        }
+                                    }}
                                     fill={
                                         currentOutcome
                                             ? colorScale(currentOutcome.arrest)

@@ -1,8 +1,9 @@
-export interface Outcome {
-    arrest: number
-    citation: number
-    none: number
+export enum OutcomeType {
+    arrest = "arrest",
+    citation = "citation",
+    none = "none"
 }
+export type Outcome = Record<OutcomeType, number>
 
 export interface AllOutcomeResponse extends Outcome {
     location: string
@@ -33,5 +34,6 @@ export interface AppState {
         age: number
         hourOfTheDay: number
         isPedestrianStop: boolean
+        outcomeType: OutcomeType | null
     }
 }

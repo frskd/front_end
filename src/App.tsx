@@ -5,6 +5,7 @@ import { ActionType } from "./actions"
 import { fetchLocations, fetchEthnicities, fetchOutcomes } from "./api/index"
 import { appReducer } from "./reducers"
 import UsMap from "./components/us-map"
+import OutcomesView from "./components/outcomes-view"
 
 const App: React.FC = () => {
     const [state, dispatch] = useReducer(appReducer, initialAppState)
@@ -47,6 +48,7 @@ const App: React.FC = () => {
             }}
         >
             <h1>Frskd</h1>
+            <OutcomesView />
             <UsMap />
         </AppContext.Provider>
     )

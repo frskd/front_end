@@ -59,6 +59,11 @@ export const appReducer = (state: AppState, action: Action): AppState => {
                     isPedestrianStop: action.payload
                 }
             }
+        case ActionType.settingsUpdateOutcomeType:
+            return {
+                ...state,
+                settings: { ...state.settings, outcomeType: action.payload }
+            }
         default:
             return state
     }
