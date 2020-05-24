@@ -3,12 +3,12 @@ import { v4 as uuid } from "uuid"
 
 import useEthnicities from "../hooks/use-ethnicities"
 import useUsStates from "../hooks/use-us-states"
-import { OutcomesInputData } from "../types/index"
+import { OutcomeQuery } from "../interfaces"
 
 interface InputControlsProps {
     controlsDidChange: (
         selectedUsState: string,
-        inputData: OutcomesInputData
+        inputData: OutcomeQuery
     ) => void
 }
 

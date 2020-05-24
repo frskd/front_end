@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import createPersistedStore from "use-persisted-state"
 
 import { fetchEthnicities } from "../api"
-import { Ethnicity } from "../api/index"
+import { Ethnicity } from "../interfaces"
 
 const useEthnicitiesStore = createPersistedStore("ethnicities")
 
