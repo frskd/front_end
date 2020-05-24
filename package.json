@@ -11,6 +11,7 @@
         "test": "jest"
     },
     "dependencies": {
+        "@chakra-ui/core": "^0.8.0",
         "@emotion/core": "^10.0.28",
         "@types/axios": "^0.14.0",
         "@types/jest": "^25.2.1",
