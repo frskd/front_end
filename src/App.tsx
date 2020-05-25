@@ -1,49 +1,65 @@
-import React, { useCallback, useState } from "react"
-import { v4 as uuid } from "uuid"
+import React, { useReducer, useEffect } from "react"
+import { ThemeProvider, CSSReset } from "@chakra-ui/core"
 
-import { fetchOutcomes } from "./api"
-import InputControls from "./components/InputControls"
-import SelectEthnicity from "./components/SelectEthnicity"
-import SelectStopType from "./components/SelectStopType"
-import SelectUsaState from "./components/SelectUsaState"
-import { OutcomesData } from "./types"
-import { OutcomesInputData } from "./types/index"
+import AppContext, { initialAppState } from "./store"
+import { ActionType } from "./actions"
+import { fetchLocations, fetchEthnicities, fetchOutcomes } from "./api/index"
+import { appReducer } from "./reducers"
+import OutcomesView from "./components/outcomes-view"
+import customTheme from "./theme"
+import SettingsView from "./components/settings-view"
+import Layout from "./components/layout"
+import MapView from "./components/map-view"
 
 const App: React.FC = () => {
-    const [outcomesData, setOutcomesData] = useState<OutcomesData>({
-        arrest: 0,
-        citation: 0,
-        none: 0
-    })
+    const [state, dispatch] = useReducer(appReducer, initialAppState)
 
-    const handleChange = useCallback(
-        (selectedUsState: string, inputData: OutcomesInputData) => {
-            fetchOutcomes(selectedUsState, inputData)
-                .then((data) => setOutcomesData(data))
-                .catch(console.error)
-        },
-        []
-    )
+    useEffect(() => {
+        ;(async () => {
+            const locations = await fetchLocations()
+            dispatch({
+                type: ActionType.initLocations,
+                payload: locations
+            })
+        })()
+    }, [])
+
+    useEffect(() => {
+        ;(async () => {
+            const ethnicities = await fetchEthnicities()
+            dispatch({
+                type: ActionType.initEthnicities,
+                payload: ethnicities
+            })
+        })()
+    }, [])
+
+    useEffect(() => {
+        ;(async () => {
+            const outcomes = await fetchOutcomes()
+            dispatch({
+                type: ActionType.initOutcomes,
+                payload: outcomes
+            })
+        })()
+    }, [])
 
     return (
-        <>
-            <h1>Frskd</h1>
-
-            <ul style={{ display: "flex", justifyContent: "space-around" }}>
-                {Object.values(outcomesData).map((outcomeData, i) => (
-                    <li key={uuid()}>
-                        <h4>{Object.keys(outcomesData)[i]}</h4>
-                        <p>{(outcomeData * 100).toPrecision(2)}%</p>
-                        <progress value={outcomeData} />
-                    </li>
-                ))}
-            </ul>
-
-            <InputControls controlsDidChange={handleChange} />
-            <SelectUsaState />
-            <SelectEthnicity />
-            <SelectStopType />
-        </>
+        <AppContext.Provider
+            value={{
+                state,
+                dispatch
+            }}
+        >
+            <ThemeProvider theme={customTheme}>
+                <CSSReset />
+                <Layout>
+                    <OutcomesView />
+                    <MapView />
+                    <SettingsView />
+                </Layout>
+            </ThemeProvider>
+        </AppContext.Provider>
     )
 }
 
