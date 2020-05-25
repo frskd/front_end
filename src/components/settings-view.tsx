@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { Stack, FormLabel, Flex, Switch, Box, Select } from "@chakra-ui/core"
 import {
     Heading,
@@ -11,9 +11,34 @@ import {
 import AppContext from "../store"
 import { ActionType } from "../actions"
 import { capitalize } from "../utils"
+import { fetchOutcomesByLocation } from "../api"
 
 const SettingsView = () => {
     const { state, dispatch } = useContext(AppContext)
+    useEffect(() => {
+        const location = state.locations[state.settings.locationId]?.name
+        const ethnicity = state.ethnicities[state.settings.ethnicityId]?.name
+
+        fetchOutcomesByLocation(location, {
+            hour_of_day: state.settings.hourOfTheDay,
+            age: state.settings.age,
+            is_pedestrian_stop: state.settings.isPedestrianStop,
+            ethnicity
+        })
+            .then((data) => {
+                dispatch({
+                    type: ActionType.updateOutcome,
+                    payload: { ...data, locationId: location }
+                })
+            })
+            .catch(console.log)
+    }, [
+        state.settings.locationId,
+        state.settings.hourOfTheDay,
+        state.settings.ethnicityId,
+        state.settings.age,
+        state.settings.isPedestrianStop
+    ])
 
     return (
         <Box

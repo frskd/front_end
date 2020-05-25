@@ -2,13 +2,15 @@ import {
     Ethnicity,
     Location,
     AllOutcomeResponse,
-    OutcomeType
+    OutcomeType,
+    Outcome
 } from "../interfaces"
 
 export enum ActionType {
     initLocations,
     initEthnicities,
     initOutcomes,
+    updateOutcome,
     settingsSelectLocation,
     settingsSelectEthnicity,
     settingsUpdateAge,
@@ -30,6 +32,11 @@ interface InitEthnicitiesAction {
 interface InitOutcomesAction {
     type: ActionType.initOutcomes
     payload: AllOutcomeResponse[]
+}
+
+interface UpdateOutcomeAction {
+    type: ActionType.updateOutcome
+    payload: Outcome & { locationId: string }
 }
 
 interface SelectLocationAction {
@@ -56,7 +63,7 @@ interface UpdateIsPedestrianStop {
     payload: boolean
 }
 
-interface UpdateOutcomeType {
+interface UpdateOutcomeTypeAction {
     type: ActionType.settingsUpdateOutcomeType
     payload: OutcomeType | null
 }
@@ -70,4 +77,5 @@ export type Action =
     | UpdateAgeAction
     | UpdateHourOfDayAction
     | UpdateIsPedestrianStop
-    | UpdateOutcomeType
+    | UpdateOutcomeTypeAction
+    | UpdateOutcomeAction

@@ -1,6 +1,5 @@
 import { ActionType, Action } from "./actions"
-import { AppState } from "./interfaces"
-import { Outcome } from "./interfaces/index"
+import { AppState, Outcome } from "./interfaces"
 
 export const appReducer = (state: AppState, action: Action): AppState => {
     switch (action.type) {
@@ -30,6 +29,16 @@ export const appReducer = (state: AppState, action: Action): AppState => {
                         [location]: { ...current }
                     })
                 }, {})
+            }
+        case ActionType.updateOutcome:
+            return {
+                ...state,
+                outcomes: {
+                    ...state.outcomes,
+                    [action.payload.locationId]: {
+                        ...action.payload
+                    }
+                }
             }
         case ActionType.settingsSelectLocation:
             return {

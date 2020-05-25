@@ -10,7 +10,7 @@ export const initialAppState: AppState = {
     outcomes: {},
     settings: {
         locationId: "Wa",
-        ethnicityId: "<insert-uuid>",
+        ethnicityId: "african_american",
         age: 27,
         hourOfTheDay: 12,
         isPedestrianStop: false,
