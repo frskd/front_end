@@ -11,7 +11,7 @@ export const initialAppState: AppState = {
     settings: {
         locationId: "Wa",
         ethnicityId: "<insert-uuid>",
-        age: 18,
+        age: 27,
         hourOfTheDay: 12,
         isPedestrianStop: false,
         outcomeType: OutcomeType.arrest

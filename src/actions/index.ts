@@ -1,5 +1,9 @@
-import { Ethnicity, Location } from "../interfaces"
-import { AllOutcomeResponse, OutcomeType } from "../interfaces/index"
+import {
+    Ethnicity,
+    Location,
+    AllOutcomeResponse,
+    OutcomeType
+} from "../interfaces"
 
 export enum ActionType {
     initLocations,

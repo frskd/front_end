@@ -3,6 +3,13 @@ export enum OutcomeType {
     citation = "citation",
     none = "none"
 }
+
+export const outcomeTypes = [
+    OutcomeType.arrest,
+    OutcomeType.citation,
+    OutcomeType.none
+]
+
 export type Outcome = Record<OutcomeType, number>
 
 export interface AllOutcomeResponse extends Outcome {

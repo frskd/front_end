@@ -1,13 +1,15 @@
 import React, { useReducer, useEffect } from "react"
-import { ThemeProvider, CSSReset, Heading, Box } from "@chakra-ui/core"
+import { ThemeProvider, CSSReset } from "@chakra-ui/core"
 
 import AppContext, { initialAppState } from "./store"
 import { ActionType } from "./actions"
 import { fetchLocations, fetchEthnicities, fetchOutcomes } from "./api/index"
 import { appReducer } from "./reducers"
-import UsMap from "./components/us-map"
 import OutcomesView from "./components/outcomes-view"
 import customTheme from "./theme"
+import SettingsView from "./components/settings-view"
+import Layout from "./components/layout"
+import MapView from "./components/map-view"
 
 const App: React.FC = () => {
     const [state, dispatch] = useReducer(appReducer, initialAppState)
@@ -51,11 +53,11 @@ const App: React.FC = () => {
         >
             <ThemeProvider theme={customTheme}>
                 <CSSReset />
-                <Box>
-                    <Heading size="2xl">Frskd</Heading>
+                <Layout>
                     <OutcomesView />
-                    <UsMap />
-                </Box>
+                    <MapView />
+                    <SettingsView />
+                </Layout>
             </ThemeProvider>
         </AppContext.Provider>
     )
