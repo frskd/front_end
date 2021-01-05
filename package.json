@@ -23,7 +23,7 @@
         "@types/react-router-dom": "^5.1.4",
         "@types/use-persisted-state": "^0.3.0",
         "@types/uuid": "^7.0.3",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "customize-cra": "^0.9.1",
         "d3-scale": "^3.2.1",
         "emotion-theming": "^10.0.27",
